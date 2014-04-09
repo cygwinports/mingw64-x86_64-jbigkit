@@ -1,6 +1,6 @@
---- origsrc/jbigkit/libjbig/Makefile	2008-08-30 12:20:52.000000000 -0500
-+++ src/jbigkit/libjbig/Makefile	2013-04-23 23:17:31.649822300 -0500
-@@ -3,11 +3,13 @@
+--- origsrc/jbigkit-2.1/libjbig/Makefile	2014-03-27 13:47:15.000000000 -0500
++++ src/jbigkit-2.1/libjbig/Makefile	2014-04-08 23:44:22.685110600 -0500
+@@ -2,10 +2,13 @@
  
  # Select an ANSI/ISO C compiler here, GNU gcc is recommended
  CC = gcc
@@ -8,19 +8,21 @@
 +RANLIB = ranlib
  
  # Options for the compiler: A high optimization level is suggested
- CFLAGS = -g -O -Wall -ansi -pedantic # --coverage
+ CFLAGS = -g -O -W -Wall -ansi -pedantic # --coverage
  
--all: libjbig.a tstcodec tstcodec85
-+all: libjbig-2.dll libjbig.a tstcodec tstcodec85
++all: libjbig-2.dll libjbig85-2.dll
+ all: libjbig.a libjbig85.a tstcodec tstcodec85
  
  tstcodec: tstcodec.o jbig.o jbig_ar.o
- 	$(CC) $(CFLAGS) -o tstcodec $+
-@@ -15,15 +17,18 @@ tstcodec: tstcodec.o jbig.o jbig_ar.o
+@@ -14,15 +17,21 @@ tstcodec: tstcodec.o jbig.o jbig_ar.o
  tstcodec85: tstcodec85.o jbig85.o jbig_ar.o
- 	$(CC) $(CFLAGS) -o tstcodec85 $+
+ 	$(CC) $(CFLAGS) -o tstcodec85 tstcodec85.o jbig85.o jbig_ar.o
  
 +libjbig-2.dll: jbig.o jbig_ar.o
 +	$(CC) -shared -Wl,--out-implib,libjbig.dll.a -o $@ $^
++
++libjbig85-2.dll: jbig85.o jbig_ar.o
++	$(CC) -shared -Wl,--out-implib,libjbig85.dll.a -o $@ $^
 +
  libjbig.a: jbig.o jbig_ar.o
  	rm -f libjbig.a

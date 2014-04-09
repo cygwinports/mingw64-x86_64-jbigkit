@@ -2,7 +2,7 @@ CROSS_HOST="x86_64-w64-mingw32"
 inherit cross
 
 NAME="mingw64-x86_64-jbigkit"
-VERSION=2.0
+VERSION=2.1
 RELEASE=1
 CATEGORY="Devel"
 SUMMARY="JBIG1 codec for Win64 toolchain"
@@ -12,10 +12,9 @@ mingw64-x86_64-gcc cross compiler, and installs into the
 /usr/x86_64-w64-mingw32/sys-root/mingw/{lib,include} directories."
 HOMEPAGE="http://www.cl.cam.ac.uk/~mgk25/jbigkit/"
 SRC_URI="http://www.cl.cam.ac.uk/~mgk25/download/jbigkit-${VERSION}.tar.gz"
-SRC_DIR="jbigkit"
+SRC_DIR="jbigkit-${VERSION}"
 PATCH_URI="
-	http://pkgs.fedoraproject.org/cgit/jbigkit.git/plain/jbigkit-2.0-warnings.patch
-	2.0-build.patch
+	2.1-build.patch
 "
 
 src_compile() {
@@ -32,7 +31,7 @@ src_test() {
 
 src_install() {
 	cd ${B}
-	dobin libjbig/libjbig-2.dll
-	dolib libjbig/libjbig{,85,.dll}.a
+	dobin libjbig/libjbig{,85}-2.dll
+	dolib libjbig/libjbig{,85}{,.dll}.a
 	doinclude libjbig/jbig{,85,_ar}.h
 }
